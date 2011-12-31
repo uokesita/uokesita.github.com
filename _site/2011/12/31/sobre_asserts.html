@@ -1,0 +1,114 @@
+<DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Sobre asserts</title>
+    <meta name="author" content="Osledy Bazo" />
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+      var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+
+    <div class="site">
+      <div class="title">
+        <a href="/">Os</a>
+      </div>
+
+      <div id="post">
+  <h1>Sobre asserts</h1>
+<p class="meta">31 Dic 2011</p>
+<p>Prueba si algo es <span class="caps">TRUE</span></p>
+<p>Firma original:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">assert</span><span class="p">(</span><span class="n">lo_que_se_va_a_probar</span><span class="p">,</span> <span class="s2">&quot;El mesaje de error&quot;</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>Ej:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">prueba</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">prueba</span><span class="p">,</span> <span class="s2">&quot;assert solo comprueba cosas que evalua a true&quot;</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span>
+
+<span class="n">prueba</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">prueba</span><span class="p">,</span> <span class="s2">&quot;assert solo comprueba cosas que evalua a true&quot;</span><span class="p">)</span>
+<span class="c1">#=&gt; assert solo comprueba cosas que evalua a true </span>
+</code></pre>
+</div>
+<p>Tambien puede ser usado como indicador de una condicion cumplida</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">valor_esperado</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">valor_actual</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">valor_esperado</span> <span class="o">==</span> <span class="n">valor_actual</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span>
+</code></pre>
+</div>
+<p>Pero la mejor forma de comparar valores es usando asset_equal</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">valor_esperado</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">valor_actual</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span>
+
+<span class="n">assert_equal</span><span class="p">(</span><span class="n">valor_esperado</span><span class="p">,</span> <span class="n">valor_actual</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span>
+</code></pre>
+</div>
+<p>Otra variante del assert es assert_block donde evaluamos un bloque de codigo</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">assert_block</span> <span class="k">do</span>
+  <span class="o">[</span><span class="s2">&quot;Oscar&quot;</span><span class="p">,</span> <span class="s2">&quot;Ivan&quot;</span><span class="p">,</span> <span class="s2">&quot;Agatta&quot;</span><span class="o">].</span><span class="n">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">nombre</span><span class="o">|</span> <span class="n">nombre</span><span class="o">.</span><span class="n">legth</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="p">}</span>
+<span class="k">end</span>
+<span class="c1">#=&gt; true</span>
+
+<span class="n">assert_block</span><span class="p">(</span><span class="s2">&quot;No es verdadero&quot;</span><span class="p">)</span> <span class="k">do</span>
+  <span class="o">[</span><span class="s2">&quot;Oscar&quot;</span><span class="p">,</span> <span class="s2">&quot;Ivan&quot;</span><span class="p">,</span> <span class="s2">&quot;Agatta&quot;</span><span class="o">].</span><span class="n">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">nombre</span><span class="o">|</span> <span class="n">nombre</span><span class="o">.</span><span class="n">legth</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="p">}</span>
+<span class="k">end</span>
+<span class="c1">#=&gt;No es verdadero </span>
+</code></pre>
+</div>
+<p>Para comparar objetos usando Object#equal?</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">assert_not_same</span><span class="p">(</span><span class="s2">&quot;Oscar&quot;</span><span class="p">,</span> <span class="s2">&quot;Oscar&quot;</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span>
+</code></pre>
+</div>
+<p>Para probar si un objeto responde a un metodo</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">assert_respond_to</span><span class="p">(</span><span class="s2">&quot;Oscar&quot;</span><span class="p">,</span> <span class="ss">:reverse</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span>
+</code></pre>
+</div>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+  </ul>
+</div>
+
+
+      <div class="footer">
+        <div class="contact">
+          <p>
+          osledybazo@gmail.com
+          </p>
+        </div>
+        <div class="contact">
+          <p>
+          <a href="http://github.com/uokesita/">github.com/uokesita</a><br />
+          <a href="http://twitter.com/uokesita/">twitter.com/uokesita</a><br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+

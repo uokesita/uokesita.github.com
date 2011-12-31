@@ -1,0 +1,82 @@
+---
+layout: post
+title: Sobre asserts
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+
+Prueba si algo es TRUE
+
+Firma original:
+
+{% highlight ruby %}
+assert(lo_que_se_va_a_probar, "El mesaje de error")
+{% endhighlight %}
+
+Ej:
+
+{% highlight ruby %}
+prueba = true
+assert(prueba, "assert solo comprueba cosas que evalua a true")
+#=> true
+
+prueba = false
+assert(prueba, "assert solo comprueba cosas que evalua a true")
+#=> assert solo comprueba cosas que evalua a true 
+{% endhighlight %}
+
+
+Tambien puede ser usado como indicador de una condicion cumplida
+
+{% highlight ruby %}
+valor_esperado = 5
+valor_actual = 3 + 2
+
+assert(valor_esperado == valor_actual)
+#=> true
+{% endhighlight %}
+
+
+Pero la mejor forma de comparar valores es usando asset_equal
+
+{% highlight ruby %}
+valor_esperado = 5
+valor_actual = 3 + 2
+
+assert_equal(valor_esperado, valor_actual)
+#=> true
+{% endhighlight %}
+
+
+Otra variante del assert es assert_block donde evaluamos un bloque de codigo
+
+{% highlight ruby %}
+assert_block do
+  ["Oscar", "Ivan", "Agatta"].any? { |nombre| nombre.legth > 4 }
+end
+#=> true
+
+assert_block("No es verdadero") do
+  ["Oscar", "Ivan", "Agatta"].any? { |nombre| nombre.legth > 10 }
+end
+#=> No es verdadero 
+{% endhighlight %}
+
+
+Para comparar objetos usando Object#equal?
+
+{% highlight ruby %}
+assert_not_same("Oscar", "Oscar")
+#=> true
+{% endhighlight %}
+
+
+Para probar si un objeto responde a un metodo
+
+{% highlight ruby %}
+assert_respond_to("Oscar", :reverse)
+#=> true
+{% endhighlight %}
