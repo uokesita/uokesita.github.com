@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sobre asserts
+title: Sobre asserts (Ruby Koans)
 ---
 
 h1. {{ page.title }}
