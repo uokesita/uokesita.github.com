@@ -1,0 +1,106 @@
+---
+layout: post
+title: Sobre objets (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+
+La clase Object esta en la raiz de la jerarquia de clases de ruby. Sus metodos estan disponibles en todas las clases, se dice que en ruby todo es un objeto, pero esto no es 100% cierto "Almost everything is an object":http://rubylearning.com/blog/2010/09/27/almost-everything-is-an-object-and-everything-is-almost-an-object/
+
+Podemos evaluar si algo es un objeto:
+
+{% highlight ruby %}
+>> 1.is_a?(Object)
+=> true
+#=> es una instancia de Fixnum
+>> 1.5.is_a?(Object)
+=> true
+#=> es una instancia de Float
+>> "string".is_a?(Object)
+=> true
+#=> es una instancia de String
+>> nil.is_a?(Object)
+=> true
+#=> es una instancia de NilClass
+>> Object.is_a?(Object)
+=> true
+#=> es una instancia de Class
+{% endhighlight %}
+
+Los objetos pueden ser convertidos a Strings
+
+{% highlight ruby %}
+>> 123.to_s
+=> "123"
+>> nil.to_s
+=> ""
+{% endhighlight %}
+
+Pueden retornar una representacion textual de si mismos
+
+{% highlight ruby %}
+>> 123.inspect
+=> "123"
+>> nil.inspect
+=> "nil"
+{% endhighlight %}
+
+Cada objeto tiene su propio id que lo identifica y no comparte con otro objeto.
+
+{% highlight ruby %}
+>> obj = Object.new
+=> #<Object:0x10062a308>
+>> obj.object_id
+=> 2150715780
+{% endhighlight %}
+
+
+{% highlight ruby %}
+>> obj = Object.new
+=> #<Object:0x10060e130>
+>> another_obj = Object.new
+=> #<Object:0x100607038>
+>> obj.object_id != another_obj.object_id
+=> true
+{% endhighlight %}
+
+Algunos objetos del sistema tienen siempre el mismo Object#id
+
+{% highlight ruby %}
+>> false.object_id
+=> 0
+>> true.object_id
+=> 2
+>> nil.object_id
+=> 4
+{% endhighlight %}
+
+Los numeros enteros pequenos tienen un Object#id fijo y este parece seguir un patron de (n+n+1)
+
+{% highlight ruby %}
+>> 0.object_id
+=> 1
+>> 1.object_id
+=> 3
+>> 2.object_id
+=> 5
+>> 100.object_id
+=> 201
+{% endhighlight %}
+
+Los objetos pueden ser clonados, donde las variables de instancia del mismo tambien son copiadas pero no los objetos a los que hace referencia
+
+{% highlight ruby %}
+>> obj = Object.new
+=> #<Object:0x1012ae458>
+>> copy = obj.clone
+=> #<Object:0x10129e8a0>
+>> obj           != copy
+=> true
+>> obj.object_id != copy.object_id
+=> true
+{% endhighlight %}
+
