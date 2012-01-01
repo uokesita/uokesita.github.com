@@ -1,0 +1,174 @@
+<DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Sobre hashes (Ruby Koans)</title>
+    <meta name="author" content="Osledy Bazo" />
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+      var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+
+    <div class="site">
+      <div class="title">
+        <a href="/">Os</a>
+      </div>
+
+      <div id="post">
+  <h1>Sobre hashes (Ruby Koans)</h1>
+<p class="meta">31 Dic 2011</p>
+<p>Un hash es una coleccion de pares llave-valor. Es similar a un arreglo excepto que se accede a sus valores via las llaves de cada llave-valor. El orden de los pares llave-valor es segun sean insertados. Por defecto si accedes a un valor con una llave que no existe el valor sera nil.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">empty_hash</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span>
+<span class="o">=&gt;</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;</span> <span class="n">empty_hash</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="no">Hash</span>
+<span class="o">&gt;&gt;</span> <span class="n">empty_hash</span><span class="o">.</span><span class="n">size</span>
+<span class="o">=&gt;</span> <span class="mi">0</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">size</span>
+<span class="o">=&gt;</span> <span class="mi">2</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">[</span><span class="ss">:one</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">[</span><span class="ss">:two</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">[</span><span class="ss">:doesnt_exist</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+</div>
+<p>Los hashes no toman en cuenta el ordenamiento de su contenido</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">hash1</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">hash2</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span><span class="p">,</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">hash1</span> <span class="o">==</span> <span class="n">hash2</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<p>Veamos como funcionan los keys de un hash.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">size</span>
+<span class="o">=&gt;</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="ss">:two</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="nb">Array</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">keys</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:one</span><span class="p">,</span> <span class="ss">:two</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">each_key</span> <span class="p">{</span><span class="o">|</span><span class="n">key</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">key</span> <span class="p">}</span>
+<span class="n">one</span>
+<span class="n">two</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<p>Ahora los values</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:one</span> <span class="o">=&gt;</span> <span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span> <span class="o">=&gt;</span> <span class="s2">&quot;dos&quot;</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">size</span>
+<span class="o">=&gt;</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s2">&quot;uno&quot;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s2">&quot;dos&quot;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="nb">Array</span>
+<span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">values</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="s2">&quot;dos&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">each_value</span> <span class="p">{</span><span class="o">|</span><span class="n">value</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">value</span> <span class="p">}</span>
+<span class="n">uno</span>
+<span class="n">dos</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">has_value?</span><span class="p">(</span><span class="s2">&quot;uno&quot;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<p>Un metodo que combina llave y valor</p>
+<div class="highlight"><pre><code class="ruby"><span class="sc">?&gt;</span> <span class="nb">hash</span><span class="o">.</span><span class="n">each_pair</span> <span class="p">{</span><span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2"> is </span><span class="si">#{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+<span class="n">one</span> <span class="n">is</span> <span class="n">uno</span>
+<span class="n">two</span> <span class="n">is</span> <span class="n">dos</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:one</span><span class="o">=&gt;</span><span class="s2">&quot;uno&quot;</span><span class="p">,</span> <span class="ss">:two</span><span class="o">=&gt;</span><span class="s2">&quot;dos&quot;</span><span class="p">}</span>
+</code></pre>
+</div>
+<p>Para combinar dos hashes podemos usar mergue, en el que si hay keys iguales sus valores seran reemplazados por los del hash a combinar</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">hash1</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;jim&quot;</span> <span class="o">=&gt;</span> <span class="mi">53</span><span class="p">,</span> <span class="s2">&quot;amy&quot;</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;dan&quot;</span> <span class="o">=&gt;</span> <span class="mi">23</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;amy&quot;</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;jim&quot;</span><span class="o">=&gt;</span><span class="mi">53</span><span class="p">,</span> <span class="s2">&quot;dan&quot;</span><span class="o">=&gt;</span><span class="mi">23</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">hash2</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;jim&quot;</span> <span class="o">=&gt;</span> <span class="mi">54</span><span class="p">,</span> <span class="s2">&quot;jenny&quot;</span> <span class="o">=&gt;</span> <span class="mi">26</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;jim&quot;</span><span class="o">=&gt;</span><span class="mi">54</span><span class="p">,</span> <span class="s2">&quot;jenny&quot;</span><span class="o">=&gt;</span><span class="mi">26</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">new_hash1</span> <span class="o">=</span> <span class="n">hash1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hash2</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;amy&quot;</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;jim&quot;</span><span class="o">=&gt;</span><span class="mi">54</span><span class="p">,</span> <span class="s2">&quot;dan&quot;</span><span class="o">=&gt;</span><span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;jenny&quot;</span><span class="o">=&gt;</span><span class="mi">26</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">new_hash2</span> <span class="o">=</span> <span class="n">hash2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hash1</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;amy&quot;</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;jim&quot;</span><span class="o">=&gt;</span><span class="mi">53</span><span class="p">,</span> <span class="s2">&quot;dan&quot;</span><span class="o">=&gt;</span><span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;jenny&quot;</span><span class="o">=&gt;</span><span class="mi">26</span><span class="p">}</span>
+</code></pre>
+</div>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_objects.html">Sobre objets (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_nil.html">Sobre nil (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_asserts.html">Sobre asserts (Ruby Koans)</a></li>
+    
+  </ul>
+</div>
+
+
+      <div class="footer">
+        <div class="contact">
+          <p>
+          osledybazo@gmail.com
+          </p>
+        </div>
+        <div class="contact">
+          <p>
+          <a href="http://github.com/uokesita/">github.com/uokesita</a><br />
+          <a href="http://twitter.com/uokesita/">twitter.com/uokesita</a><br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+

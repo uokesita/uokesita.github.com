@@ -1,0 +1,134 @@
+---
+layout: post
+title: Sobre hashes (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Un hash es una coleccion de pares llave-valor. Es similar a un arreglo excepto que se accede a sus valores via las llaves de cada llave-valor. El orden de los pares llave-valor es segun sean insertados. Por defecto si accedes a un valor con una llave que no existe el valor sera nil.
+
+{% highlight ruby %}
+>> empty_hash = Hash.new
+=> {}
+>> empty_hash.class
+=> Hash
+>> empty_hash.size
+=> 0
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash = { :one => "uno", :two => "dos" }
+=> {:one=>"uno", :two=>"dos"}
+>> hash.size
+=> 2
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash = { :one => "uno", :two => "dos" }
+=> {:one=>"uno", :two=>"dos"}
+>> hash[:one]
+=> "uno"
+>> hash[:two]
+=> "dos"
+>> hash[:doesnt_exist]
+=> nil
+{% endhighlight %}
+
+Los hashes no toman en cuenta el ordenamiento de su contenido
+
+{% highlight ruby %}
+>> hash1 = { :one => "uno", :two => "dos" }
+=> {:one=>"uno", :two=>"dos"}
+>> hash2 = { :two => "dos", :one => "uno" }
+=> {:one=>"uno", :two=>"dos"}
+>> hash1 == hash2
+=> true
+{% endhighlight %}
+
+
+Veamos como funcionan los keys de un hash.
+
+{% highlight ruby %}
+>> hash = { :one => "uno", :two => "dos" }
+=> {:one=>"uno", :two=>"dos"}
+
+>> hash.keys.size
+=> 2
+>> hash.keys.include?(:one)
+=> true
+>> hash.keys.include?(:two)
+=> true
+>> hash.keys.class
+=> Array
+>> hash.keys
+=> [:one, :two]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash.each_key {|key| puts key }
+one
+two
+=> {:one=>"uno", :two=>"dos"}
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash.has_key?(:one)
+=> true
+{% endhighlight %}
+
+Ahora los values
+
+{% highlight ruby %}
+>> hash = { :one => "uno", :two => "dos" }
+=> {:one=>"uno", :two=>"dos"}
+
+>> hash.values.size
+=> 2
+>> hash.values.include?("uno")
+=> true
+>> hash.values.include?("dos")
+=> true
+>> hash.values.class
+=> Array
+>> hash.values
+=> ["uno", "dos"]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash.each_value {|value| puts value }
+uno
+dos
+=> {:one=>"uno", :two=>"dos"}
+{% endhighlight %}
+
+{% highlight ruby %}
+>> hash.has_value?("uno")
+=> true
+{% endhighlight %}
+
+Un metodo que combina llave y valor
+
+{% highlight ruby %}
+?> hash.each_pair {|key, value| puts "#{key} is #{value}"}
+one is uno
+two is dos
+=> {:one=>"uno", :two=>"dos"}
+{% endhighlight %}
+
+Para combinar dos hashes podemos usar mergue, en el que si hay keys iguales sus valores seran reemplazados por los del hash a combinar
+
+{% highlight ruby %}
+>> hash1 = { "jim" => 53, "amy" => 20, "dan" => 23 }
+=> {"amy"=>20, "jim"=>53, "dan"=>23}
+
+>> hash2 = { "jim" => 54, "jenny" => 26 }
+=> {"jim"=>54, "jenny"=>26}
+
+>> new_hash1 = hash1.merge(hash2)
+=> {"amy"=>20, "jim"=>54, "dan"=>23, "jenny"=>26}
+
+>> new_hash2 = hash2.merge(hash1)
+=> {"amy"=>20, "jim"=>53, "dan"=>23, "jenny"=>26}
+{% endhighlight %}
