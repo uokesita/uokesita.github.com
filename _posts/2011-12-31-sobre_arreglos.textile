@@ -1,0 +1,152 @@
+---
+layout: post
+title: Sobre arreglos (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Los arreglos son colecciones de objetos ordenados con un indece entero, el ordenamiento de los arreglos comienzan en 0. Un indice negativo asume ser relativo al fin del arreglo, por ej el indice -1 se refiere al ultimo elemento del arreglo.
+
+{% highlight ruby %}
+>> arreglo_vacio = Array.new
+=> []
+>> arreglo_vacio.class
+=> Array
+>> arreglo_vacio.size
+=> 0
+{% endhighlight %}
+
+Se pueden asignar valores a las posiciones de un arreglo, o usar los metodos <<, insert o push para llenar un arreglo. En el caso de posiciones sin valores estas tendran un valor nil.
+
+{% highlight ruby %}
+>> array = Array.new
+=> []
+>> array[0] = 1
+=> 1
+>> [1] == array
+=> true
+>> array[1] = 2
+=> 2
+>> [1,2] == array
+=> true
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array << 333
+=> [1, 2, 333]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array.insert(3,4)
+=> [333, nil, nil, 4]
+{% endhighlight %}
+
+
+Para acceder a los arreglos podemos hacer usando la posicion del inidice o usar los metodos values_at, last, fetch.
+
+{% highlight ruby %}
+>> array = [:peanut, :butter, :and, :jelly]
+=> [:peanut, :butter, :and, :jelly]
+
+>> array[0]
+=> :peanut
+>> array.first
+=> :peanut
+>> array[3]
+=> :jelly
+>> array.last
+=> :jelly
+>> array[-1]
+=> :jelly
+>> array[-1]
+=> :jelly
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array.values_at(2)
+=> [:and]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array.fetch(0)
+=> :peanut
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array.at(1)
+=> :butter
+{% endhighlight %}
+
+
+Tambien podemos tomar los objetos que contiene un arreglo mediante sus indices, con el metodo take o usando rangos.
+
+{% highlight ruby %}
+>> array = [:peanut, :butter, :and, :jelly]
+=> [:peanut, :butter, :and, :jelly]
+
+>> array[0,1]
+=> [:peanut]
+>> array[0,2]
+=> [:peanut, :butter]
+>> array[2,2]
+=> [:and, :jelly]
+>> array[2,20]
+=> [:and, :jelly]
+>> array[4,0]
+=> []
+>> array[4,100]
+=> []
+>> array[5,0]
+=> nil
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array.take(2)
+=> [:peanut, :butter]
+{% endhighlight %}
+
+
+\\
+
+{% highlight ruby %}
+>> array = [:peanut, :butter, :and, :jelly]
+=> [:peanut, :butter, :and, :jelly]
+
+>> array[0..2]
+=> [:peanut, :butter, :and]
+>> array[0...2]
+=> [:peanut, :butter]
+>> array[2..-1]
+=> [:and, :jelly]
+{% endhighlight %}
+
+
+Los metodos push/pop, shif/unshift sirven para agregar y quitar valores al arreglo respectivamente.
+
+{% highlight ruby %}
+>> array = [1,2]
+=> [1, 2]
+
+>> array.push(:last)
+=> [1, 2, :last]
+>> popped_value = array.pop
+=> :last
+{% endhighlight %}
+
+{% highlight ruby %}
+>> array = [1,2]
+=> [1, 2]
+
+>> array.unshift(:first)
+=> [:first, 1, 2]
+>> array.shift
+=> :first
+>> array
+=> [1, 2]
+{% endhighlight %}
+
+
+
+
