@@ -1,6 +1,6 @@
 ---
 layout: post
-title: True Class y FalseClass
+title: Sobre nil (Ruby Koans)
 ---
 
 h1. {{ page.title }}
@@ -8,37 +8,35 @@ h1. {{ page.title }}
 p(meta). 31 Dic 2011
 
 
-Todos los objetos y expresiones en ruby pueden ser evaluadas a true o false
-
-En ruby existen las clases TrueClass y FalseClass para estas variables globales, true y false son las unicas instancias que pueden representar estas clases es decir que no se pueden crear instancias nuevas de estas.
-
-Representan respectivmente su valor booleano. TrueClass y FalseClass proveen operadores que permiten evaluar expresiones logicas.
+Nil es un objeto de ruby y su clase es "NilClass":http://www.ruby-doc.org/core-1.9.3/NilClass.html es un objeto singleton y solo puede haber una instancia de este.
 
 {% highlight ruby %}
->> TrueClass.new
-NoMethodError: undefined method `new' for TrueClass:Class
-	from (irb):31
-	from :0
+>> nil.is_a?(Object)
+=> true
 {% endhighlight %}
 
+Si un metodo no existe para un objeto nil, no obtienes un null pointer error porque no estas apuntando a una referencia del objeto.
+
+Como objeto nil tambien tiene su Object#id invariable
+
 {% highlight ruby %}
->> FalseClass.new
-NoMethodError: undefined method `new' for FalseClass:Class
-	from (irb):32
-	from :0
+>> nil.object_id
+=> 4
 {% endhighlight %}
 
-True y false en si son objetos tambien, y como objetos tienen su Object#id, al igual que nil y Fixnum estos objetos tendran siempre este Object#id
+La clase NilClass provee a nil con metodos para convertirlo a varios tipos de objetos si lo necesitas:
 
 {% highlight ruby %}
->> false.object_id
+>> nil.nil?
+=> true
+>> nil.to_s
+=> ""
+>> nil.to_a
+=> []
+>> nil.to_f
+=> 0.0
+>> nil.to_i
 => 0
->> true.object_id
-=> 2
+>> nil.inspect
+=> "nil"
 {% endhighlight %}
-
-Los unicos objetos que evaluan a false en ruby son el objeto false y el objeto nil.
-
-Mas sobre esto:
-"True, False And Nil Objects In Ruby":http://www.skorks.com/2009/09/true-false-and-nil-objects-in-ruby/
-"StackOverflow: Why TrueClass and FalseClass instead of Boolean?":http://stackoverflow.com/questions/3192978/ruby-why-trueclass-and-falseclass-instead-of-boolean
