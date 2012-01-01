@@ -31,32 +31,34 @@
       <div id="post">
   <h1>Sobre nil (Ruby Koans)</h1>
 <p class="meta">31 Dic 2011</p>
-<p>Todos los objetos y expresiones en ruby pueden ser evaluadas a true o false</p>
-<p>En ruby existen las clases TrueClass y FalseClass para estas variables globales, true y false son las unicas instancias que pueden representar estas clases es decir que no se pueden crear instancias nuevas de estas.</p>
-<p>Representan respectivmente su valor booleano. TrueClass y FalseClass proveen operadores que permiten evaluar expresiones logicas.</p>
-<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="no">TrueClass</span><span class="o">.</span><span class="n">new</span>
-<span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`new&#39; for TrueClass:Class</span>
-<span class="sb">	from (irb):31</span>
-<span class="sb">	from :0</span>
+<p>Nil es un objeto de ruby y su clase es <a href="http://www.ruby-doc.org/core-1.9.3/NilClass.html">NilClass</a> es un objeto singleton y solo puede haber una instancia de este.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Object</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
 </code></pre>
 </div>
-<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="no">FalseClass</span><span class="o">.</span><span class="n">new</span>
-<span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`new&#39; for FalseClass:Class</span>
-<span class="sb">	from (irb):32</span>
-<span class="sb">	from :0</span>
+<p>Si un metodo no existe para un objeto nil, no obtienes un null pointer error porque no estas apuntando a una referencia del objeto.</p>
+<p>Como objeto nil tambien tiene su Object#id invariable</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">object_id</span>
+<span class="o">=&gt;</span> <span class="mi">4</span>
 </code></pre>
 </div>
-<p>True y false en si son objetos tambien, y como objetos tienen su Object#id, al igual que nil y Fixnum estos objetos tendran siempre este Object#id</p>
-<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="kp">false</span><span class="o">.</span><span class="n">object_id</span>
+<p>La clase NilClass provee a nil con metodos para convertirlo a varios tipos de objetos si lo necesitas:</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">nil?</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">to_s</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">to_a</span>
+<span class="o">=&gt;</span> <span class="o">[]</span>
+<span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">to_f</span>
+<span class="o">=&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mi">0</span>
+<span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">to_i</span>
 <span class="o">=&gt;</span> <span class="mi">0</span>
-<span class="o">&gt;&gt;</span> <span class="kp">true</span><span class="o">.</span><span class="n">object_id</span>
-<span class="o">=&gt;</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="o">.</span><span class="n">inspect</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;nil&quot;</span>
 </code></pre>
 </div>
-<p>Los unicos objetos que evaluan a false en ruby son el objeto false y el objeto nil.</p>
 <p>Mas sobre esto:<br />
-<a href="http://www.skorks.com/2009/09/true-false-and-nil-objects-in-ruby/">True, False And Nil Objects In Ruby</a><br />
-<a href="http://stackoverflow.com/questions/3192978/ruby-why-trueclass-and-falseclass-instead-of-boolean">StackOverflow: Why TrueClass and FalseClass instead of Boolean?</a></p>
+<a href="http://www.skorks.com/2009/09/true-false-and-nil-objects-in-ruby/">True, False And Nil Objects In Ruby</a></p>
 </div>
 
 <div id="related">

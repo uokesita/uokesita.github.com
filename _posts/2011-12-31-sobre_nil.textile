@@ -40,3 +40,6 @@ La clase NilClass provee a nil con metodos para convertirlo a varios tipos de ob
 >> nil.inspect
 => "nil"
 {% endhighlight %}
+
+Mas sobre esto:
+"True, False And Nil Objects In Ruby":http://www.skorks.com/2009/09/true-false-and-nil-objects-in-ruby/
