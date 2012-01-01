@@ -1,0 +1,44 @@
+---
+layout: post
+title: True Class y FalseClass
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+
+Todos los objetos y expresiones en ruby pueden ser evaluadas a true o false
+
+En ruby existen las clases TrueClass y FalseClass para estas variables globales, true y false son las unicas instancias que pueden representar estas clases es decir que no se pueden crear instancias nuevas de estas.
+
+Representan respectivmente su valor booleano. TrueClass y FalseClass proveen operadores que permiten evaluar expresiones logicas.
+
+{% highlight ruby %}
+>> TrueClass.new
+NoMethodError: undefined method `new' for TrueClass:Class
+	from (irb):31
+	from :0
+{% endhighlight %}
+
+{% highlight ruby %}
+>> FalseClass.new
+NoMethodError: undefined method `new' for FalseClass:Class
+	from (irb):32
+	from :0
+{% endhighlight %}
+
+True y false en si son objetos tambien, y como objetos tienen su Object#id, al igual que nil y Fixnum estos objetos tendran siempre este Object#id
+
+{% highlight ruby %}
+>> false.object_id
+=> 0
+>> true.object_id
+=> 2
+{% endhighlight %}
+
+Los unicos objetos que evaluan a false en ruby son el objeto false y el objeto nil.
+
+Mas sobre esto:
+"True, False And Nil Objects In Ruby":http://www.skorks.com/2009/09/true-false-and-nil-objects-in-ruby/
+"StackOverflow: Why TrueClass and FalseClass instead of Boolean?":http://stackoverflow.com/questions/3192978/ruby-why-trueclass-and-falseclass-instead-of-boolean
