@@ -1,0 +1,140 @@
+---
+layout: post
+title: Sobre Strings (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+
+Un objeto string mantiene y manipula una secuencia arbitraria de caracteres. Pueden ser creados usando String#new o literalmente. Puedes crear un String con comillas, dobles o simples asi como con comillas simples y usar comillas dobles dentro de este que seran escapadas
+
+{% highlight ruby %}
+>> string = "Hello, World"
+> "Hello, World"
+>> string = 'Hello, World'
+>> "Hello, World"
+{% endhighlight %}
+
+{% highlight ruby %}
+string = 'He said, "Go Away."'
+> "He said, \"Go Away.\""
+{% endhighlight %}
+
+{% highlight ruby %}
+>> string = "Don't"
+> "Don"t"
+{% endhighlight %}
+
+Podemos usar comillas flexibles para usar ambos tipos de comillas en un string (simple y doble) ademas de multiples lineas
+
+{% highlight ruby %}
+>> %(flexible quotes can handle both ' and " characters)
+> "flexible quotes can handle both ' and \" characters"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> long_string = %{
+It was the best of times,
+It was the worst of times.
+}
+> "\nIt was the best of times,\nIt was the worst of times.\n"
+{% endhighlight %}
+
+Tambien los here docs pueden manejar multiples lineas
+
+{% highlight ruby %}
+>> long_string = <<EOS
+<span class="sh">It was the best of times,
+<span class="sh">It was the worst of times.
+<span class="no">EOS
+> "It was the best of times,\nIt was the worst of times.\n"
+{% endhighlight %}
+
+Podemos usar los operadores + , += y << para concatenar varios strings. Es preferible usar el operados << en vez de += para evitar creacion de variables en el proceso de concatenacion.
+
+{% highlight ruby %}
+>> string = "Hello, " + "World"
+> "Hello, World"
+{% endhighlight %}
+
+{% highlight ruby %}
+> hi = "Hello, "
+> "Hello, "
+>> hi += "World"
+> "Hello, World"
+{% endhighlight %}
+
+Podemos usar rangos para obtener partes de un string.
+
+{% highlight ruby %}
+>> string = "Bacon, lettuce and tomato"
+> "Bacon, lettuce and tomato"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> string[7..9]
+> "let"
+{% endhighlight %}
+
+Tambien podemos obtener un caracter de un string, al hacer esto, es retornado caracter en forma ordinal.
+
+{% highlight ruby %}
+>> string = "Bacon, lettuce and tomato"
+> "Bacon, lettuce and tomato"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> string[1]
+> 97
+{% endhighlight %}
+
+Los string pueden ser separados en base a algun delimitador, por defecto el delimitador es un espacio.
+
+{% highlight ruby %}
+>> string = "Sausage Egg Cheese"
+> "Sausage Egg Cheese"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> words = string.split
+> ["Sausage", "Egg", "Cheese"]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> string = "the:rain:in:spain"
+> "the:rain:in:spain"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> words = string.split(/:/)
+> ["the", "rain", "in", "spain"]
+{% endhighlight %}
+
+Los string tambien pueden ser generados a partir de un arreglo de stirngs y un separador.
+
+{% highlight ruby %}
+>> words = ["Now", "is", "the", "time"]
+> ["Now", "is", "the", "time"]
+{% endhighlight %}
+
+{% highlight ruby %}
+>> words.join(" ")
+> "Now is the time"
+{% endhighlight %}
+
+Los strings no son objetos unicos
+
+{% highlight ruby %}
+>> a = "a string"
+> "a string"
+>> b = "a string"
+> "a string"
+
+>> a == b
+> true
+
+>> a.object_id == b.object_id
+> false
+{% endhighlight %}

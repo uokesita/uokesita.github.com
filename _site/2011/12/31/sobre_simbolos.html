@@ -1,0 +1,140 @@
+<DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Sobre Simbolos (Ruby Koans)</title>
+    <meta name="author" content="Osledy Bazo" />
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+      var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+
+    <div class="site">
+      <div class="title">
+        <a href="/">Os</a>
+      </div>
+
+      <div id="post">
+  <h1>Sobre Simbolos (Ruby Koans)</h1>
+<p class="meta">31 Dic 2011</p>
+<p>Los objetos simbolo representan nombres y strings dentro del interprete de ruby. Son generados usando la sintaxis :nombre y :&#8220;nombre&#8221; y por los metodos to_sym. Un unico objeto symbol sera generado por un nombre o string que durara por todo el tiempo de la ejecucion de un programa, sin importar el contexto o el significado de ese nombre.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol</span> <span class="o">=</span> <span class="ss">:ruby</span>
+<span class="o">=&gt;</span> <span class="ss">:ruby</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Symbol</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol1</span> <span class="o">=</span> <span class="ss">:a_symbol</span>
+<span class="o">=&gt;</span> <span class="ss">:a_symbol</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol2</span> <span class="o">=</span> <span class="ss">:a_symbol</span>
+<span class="o">=&gt;</span> <span class="ss">:a_symbol</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol3</span> <span class="o">=</span> <span class="ss">:something_else</span>
+<span class="o">=&gt;</span> <span class="ss">:something_else</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol1</span> <span class="o">==</span> <span class="n">symbol2</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol1</span> <span class="o">==</span> <span class="n">symbol3</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol1</span><span class="o">.</span><span class="n">object_id</span> <span class="o">==</span> <span class="n">symbol2</span><span class="o">.</span><span class="n">object_id</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<p>El metodo all_symbols retorna un arreglo con todos los simbolos que se encuentran en la tabla de ruby en el momento de a ejecucion del programa</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="no">Symbol</span><span class="o">.</span><span class="n">all_symbols</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;Shellwords&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;@level_notifier&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;ppx&quot;</span><span class="p">,</span> <span class="s2">&quot;__23657__&quot;</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="n">.</span><span class="o">]</span>
+</code></pre>
+</div>
+<p>Las definiciones de metodos se convierten en simbolos del sistema</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="k">def</span> <span class="nf">metodo_de_prueba</span> <span class="p">;</span><span class="k">end</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbols_as_strings</span> <span class="o">=</span> <span class="no">Symbol</span><span class="o">.</span><span class="n">all_symbols</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbols_as_strings</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s2">&quot;metodo_de_prueba&quot;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+<p>Un string puede ser convertido a simbolo e incluso puede crearse un simbolo con un string que contenga espacios asi como con valores interpolados. Tambien pueden ser creados dinamicamente.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;catsAndDogs&quot;</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;catsAndDogs&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">string</span><span class="o">.</span><span class="n">to_sym</span>
+<span class="o">=&gt;</span> <span class="ss">:catsAndDogs</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol</span> <span class="o">=</span> <span class="ss">:&quot;cats and dogs&quot;</span>
+<span class="o">=&gt;</span> <span class="ss">:&quot;cats and dogs&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;and&quot;</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;and&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol</span> <span class="o">=</span> <span class="ss">:&quot;cats </span><span class="si">#{</span><span class="n">value</span><span class="si">}</span><span class="ss"> dogs&quot;</span>
+<span class="o">=&gt;</span> <span class="ss">:&quot;cats and dogs&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="s2">&quot;cats&quot;</span> <span class="o">+</span> <span class="s2">&quot;dogs&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_sym</span>
+<span class="o">=&gt;</span> <span class="ss">:catsdogs</span>
+</code></pre>
+</div>
+<p>Un simbolo no es un string por lo tanto no responde a los metodos de String</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">symbol</span> <span class="o">=</span> <span class="ss">:ruby</span>
+<span class="o">=&gt;</span> <span class="ss">:ruby</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">symbol</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+<span class="o">&gt;&gt;</span> <span class="n">symbol</span><span class="o">.</span><span class="n">eql?</span><span class="p">(</span><span class="s2">&quot;ruby&quot;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">symbol</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:each_char</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+</code></pre>
+</div>
+<p>Como los simbolos permanecen en el sistema hasta la terminacion del programa no es buena idea crear demasiados simbolos, esto podria dejarte sin memoria. Se recomienda crear simbolos solo si necesitas accesarlo en varias ocasiones y cuando no necesitan ser modificados.</p>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_strings.html">Sobre Simbolos (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_objects.html">Sobre objets (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_nil.html">Sobre nil (Ruby Koans)</a></li>
+    
+  </ul>
+</div>
+
+
+      <div class="footer">
+        <div class="contact">
+          <p>
+          osledybazo@gmail.com
+          </p>
+        </div>
+        <div class="contact">
+          <p>
+          <a href="http://github.com/uokesita/">github.com/uokesita</a><br />
+          <a href="http://twitter.com/uokesita/">twitter.com/uokesita</a><br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+

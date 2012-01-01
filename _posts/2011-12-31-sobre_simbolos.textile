@@ -1,0 +1,100 @@
+---
+layout: post
+title: Sobre Simbolos (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Los objetos simbolo representan nombres y strings dentro del interprete de ruby. Son generados usando la sintaxis :nombre y :"nombre" y por los metodos to_sym. Un unico objeto symbol sera generado por un nombre o string que durara por todo el tiempo de la ejecucion de un programa, sin importar el contexto o el significado de ese nombre.
+
+{% highlight ruby %}
+>> symbol = :ruby
+=> :ruby
+>> symbol.is_a?(Symbol)
+=> true
+{% endhighlight %}
+
+{% highlight ruby %}
+>> symbol1 = :a_symbol
+=> :a_symbol
+>> symbol2 = :a_symbol
+=> :a_symbol
+>> symbol3 = :something_else
+=> :something_else
+{% endhighlight %}
+
+{% highlight ruby %}
+>> symbol1 == symbol2
+=> true
+>> symbol1 == symbol3
+=> false
+{% endhighlight %}
+
+{% highlight ruby %}
+>> symbol1.object_id == symbol2.object_id
+=> true
+{% endhighlight %}
+
+El metodo all_symbols retorna un arreglo con todos los simbolos que se encuentran en la tabla de ruby en el momento de a ejecucion del programa
+
+{% highlight ruby %}
+>> Symbol.all_symbols.map { |x| x.to_s }
+=> ["Shellwords", "version", "@level_notifier", "pos", "ppx", "__23657__", ......]
+{% endhighlight %}
+
+
+Las definiciones de metodos se convierten en simbolos del sistema
+
+{% highlight ruby %}
+>> def metodo_de_prueba ;end
+=> nil
+>> symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+>> symbols_as_strings.include?("metodo_de_prueba")
+=> true
+{% endhighlight %}
+
+Un string puede ser convertido a simbolo e incluso puede crearse un simbolo con un string que contenga espacios asi como con valores interpolados. Tambien pueden ser creados dinamicamente.
+
+{% highlight ruby %}
+>> string = "catsAndDogs"
+=> "catsAndDogs"
+>> string.to_sym
+=> :catsAndDogs
+{% endhighlight %}
+
+{% highlight ruby %}
+>> symbol = :"cats and dogs"
+=> :"cats and dogs"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> value = "and"
+=> "and"
+>> symbol = :"cats #{value} dogs"
+=> :"cats and dogs"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> ("cats" + "dogs").to_sym
+=> :catsdogs
+{% endhighlight %}
+
+
+Un simbolo no es un string por lo tanto no responde a los metodos de String
+
+{% highlight ruby %}
+>> symbol = :ruby
+=> :ruby
+
+>> symbol.is_a?(String)
+=> false
+>> symbol.eql?("ruby")
+=> false
+
+>> symbol.respond_to?(:each_char)
+=> false
+{% endhighlight %}
+
+Como los simbolos permanecen en el sistema hasta la terminacion del programa no es buena idea crear demasiados simbolos, esto podria dejarte sin memoria. Se recomienda crear simbolos solo si necesitas accesarlo en varias ocasiones y cuando no necesitan ser modificados.
