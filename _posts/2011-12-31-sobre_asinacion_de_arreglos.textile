@@ -1,0 +1,60 @@
+---
+layout: post
+title: Sobre asignacion de arreglos (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Podemos hacer asignaciones paralelas con nuestros arreglos
+
+{% highlight ruby %}
+>> first_name, last_name = ["John", "Smith"]
+=> ["John", "Smith"]
+
+>> first_name
+=> "John"
+>> last_name
+=> "Smith"
+{% endhighlight %}
+
+Podemos usar el * para usar el resto de los valores.
+
+{% highlight ruby %}
+>> first_name, *last_name = ["John", "Smith", "III"]
+=> ["John", "Smith", "III"]
+
+>> first_name
+=> "John"
+>> last_name
+=> ["Smith", "III"]
+{% endhighlight %}
+
+En caso de no haber valores suficientes se usara nil
+
+{% highlight ruby %}
+>> first_name, last_name = ["Cher"]
+=> ["Cher"]
+
+>> first_name
+=> "Cher"
+>> last_name
+=> nil
+{% endhighlight %}
+
+Podemos usar la asignacion paralela para intercambiar los valores sin usar variables temporales
+
+{% highlight ruby %}
+>> first_name = "Roy"
+=> "Roy"
+>> last_name = "Rob"
+=> "Rob"
+>> first_name, last_name = last_name, first_name
+=> ["Rob", "Roy"]
+
+>> first_name
+=> "Rob"
+>> last_name
+=> "Roy"
+{% endhighlight %}
