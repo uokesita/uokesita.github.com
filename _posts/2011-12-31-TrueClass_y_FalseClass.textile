@@ -1,6 +1,6 @@
 ---
 layout: post
-title: True Class y FalseClass
+title: TrueClass y FalseClass
 ---
 
 h1. {{ page.title }}
