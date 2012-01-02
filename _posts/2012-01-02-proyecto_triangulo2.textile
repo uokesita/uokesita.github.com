@@ -1,0 +1,61 @@
+---
+layout: post
+title: Proyecto Triangulo 2 (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+{% highlight ruby %}
+class TriangleError < RuntimeError
+end
+
+def triangle(*args)
+  x=[]; args.each {|n| (n<=0)? x<<true : x<<false;}
+  raise TriangleError if x.include?(true)
+  
+  raise TriangleError if (args[0]+args[1]<=args[2]) || 
+                         (args[0]+args[2]<=args[1]) || 
+                         (args[2]+args[1]<=args[0])
+
+  return :equilateral if args.uniq.size == 1
+  return :isosceles if args.uniq.size == 2
+  return :scalene if args.uniq.size == 3
+end
+{% endhighlight %}
+
+{% highlight ruby %}
+>> triangle(0, 0, 0)
+=> TriangleError
+
+>> triangle(3, 4, -5)
+=> TriangleError
+
+>> triangle(1, 1, 3)
+=> TriangleError
+
+>> triangle(2, 4, 2)
+=> TriangleError
+
+>> triangle(2, 2, 2)
+=> :equilateral
+>> triangle(10, 10, 10)
+=> :equilateral
+
+>> triangle(3, 4, 4)
+=> :isosceles
+>> triangle(4, 3, 4)
+=> :isosceles
+>> triangle(4, 4, 3)
+=> :isosceles
+>> triangle(10, 10, 2)
+=> :isosceles
+
+>> triangle(3, 4, 5)
+=> :scalene
+>> triangle(10, 11, 12)
+=> :scalene
+>> triangle(5, 4, 2)
+=> :scalene
+{% endhighlight %}
