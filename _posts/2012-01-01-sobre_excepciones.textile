@@ -1,0 +1,48 @@
+---
+layout: post
+title: Sobre execpciones (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Descendientes de la clase Execption son usados para comunicarse entre metodos raise y rescue en bloques begin/end. Los objetos Exception llevan informacion acerca de el tipo de excepcion (el nombre de la clase), un string descriptiveo opcional, e informacion adicional opcional.
+
+{% highlight ruby %}
+class MySpecialError < RuntimeError
+end
+
+>> MySpecialError.ancestors[1]
+=> RuntimeError
+>> MySpecialError.ancestors[2]
+=> StandardError
+>> MySpecialError.ancestors[3]
+=> Exception
+>> MySpecialError.ancestors[4]
+=> Object
+{% endhighlight %}
+
+{% highlight ruby %}
+result = nil
+begin
+  # 'raise' and 'fail' are synonyms
+  raise MySpecialError, "My Message"
+rescue MySpecialError => ex
+  result = :exception_handled
+end
+#=> :exception_handled
+{% endhighlight %}
+
+{% highlight ruby %}
+result = nil
+begin
+  # 'raise' and 'fail' are synonyms
+  raise MySpecialError, "My Message"
+rescue MySpecialError => ex
+  result = :exception_handled
+ensure
+  result = :always_run
+end
+#=> :always_run
+{% endhighlight %}
