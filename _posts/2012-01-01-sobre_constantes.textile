@@ -1,0 +1,86 @@
+---
+layout: post
+title: Sobre constantes (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+{% highlight ruby %}
+C = "top level"
+
+class Constantes
+
+  C = "nested"
+
+  puts C
+end
+=> "nested"
+{% endhighlight %}
+
+
+{% highlight ruby %}
+C = "top level"
+
+class Constantes
+
+  C = "nested"
+
+  puts ::C
+end
+=> "top level"
+
+>> Constantes::C
+=> "nested"
+
+>> ::Constantes::C
+=> "nested"
+{% endhighlight %}
+
+Las clases internas heredan las constantes de la clase que las contiene
+
+{% highlight ruby %}
+class Animal
+  LEGS = 4
+  def legs_in_animal
+    LEGS
+  end
+
+  class NestedAnimal
+    def legs_in_nested_animal
+      LEGS
+    end
+  end
+end
+>> Animal::NestedAnimal.new.legs_in_nested_animal
+=> 4
+{% endhighlight %}
+
+Las subclases heredan las constantes de su clase padre
+
+{% highlight ruby %}
+class Reptile < Animal
+  def legs_in_reptile
+    LEGS
+  end
+end
+>> Reptile.new.legs_in_reptile
+=> 4
+{% endhighlight %}
+
+Al tener clases dentro de una clase y clases subclases la constante toma el valor de la clase nested
+
+{% highlight ruby %}
+class MyAnimals
+  LEGS = 2
+
+  class Bird < Animal
+    def legs_in_bird
+      LEGS
+    end
+  end
+end
+>> MyAnimals::Bird.new.legs_in_bird
+=> 2
+{% endhighlight %}
