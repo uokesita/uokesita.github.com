@@ -1,0 +1,39 @@
+---
+layout: post
+title: Proyecto Triangulo (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+{% highlight ruby %}
+def triangle(*args)
+  return :equilateral if args.uniq.size == 1
+  return :isosceles if args.uniq.size == 2
+  return :scalene if args.uniq.size == 3
+end
+{% endhighlight %}
+
+{% highlight ruby %}
+>> triangle(2, 2, 2)
+=> :equilateral
+>> triangle(10, 10, 10)
+=> :equilateral
+
+>> triangle(3, 4, 4)
+=> :isosceles
+>> triangle(4, 3, 4)
+=> :isosceles
+>> triangle(4, 4, 3)
+=> :isosceles
+>> triangle(10, 10, 2)
+=> :isosceles
+
+>> triangle(3, 4, 5)
+=> :scalene
+>> triangle(10, 11, 12)
+=> :scalene
+>> triangle(5, 4, 2)
+=> :scalene
+{% endhighlight %}

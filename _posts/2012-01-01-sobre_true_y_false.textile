@@ -1,0 +1,35 @@
+---
+layout: post
+title: Sobre true y false (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+En ruby solo nil y false son false
+
+{% highlight ruby %}
+def truth_value(condition)
+  if condition
+    :true_stuff
+  else
+    :false_stuff
+  end
+end
+{% endhighlight %}
+
+{% highlight ruby %}
+>> truth_value(1)
+=> :true_stuff
+>> truth_value(0)
+=> :true_stuff
+>> truth_value([])
+=> :true_stuff
+>> truth_value({})
+=> :true_stuff
+>> truth_value("Strings")
+=> :true_stuff
+>> truth_value("")
+=> :true_stuff
+{% endhighlight %}
