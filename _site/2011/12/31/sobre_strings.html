@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Sobre Simbolos (Ruby Koans)</title>
+    <title>Sobre Strings (Ruby Koans)</title>
     <meta name="author" content="Osledy Bazo" />
 
     <!-- syntax highlighting CSS -->
@@ -29,9 +29,113 @@
       </div>
 
       <div id="post">
-  <h1>Sobre Simbolos (Ruby Koans)</h1>
+  <h1>Sobre Strings (Ruby Koans)</h1>
 <p class="meta">31 Dic 2011</p>
-<div class="highlight"><pre><code class="ruby">
+<p>Un objeto string mantiene y manipula una secuencia arbitraria de caracteres. Pueden ser creados usando String#new o literalmente. Puedes crear un String con comillas, dobles o simples asi como con comillas simples y usar comillas dobles dentro de este que seran escapadas</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Hello, World&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Hello, World&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;Hello, World&#39;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;Hello, World&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;He said, &quot;Go Away.&quot;&#39;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;He said, </span><span class="se">\&quot;</span><span class="s2">Go Away.</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Don&#39;t&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Don&quot;</span><span class="n">t</span><span class="s2">&quot;</span>
+</code></pre>
+</div>
+<p>Podemos usar comillas flexibles para usar ambos tipos de comillas en un string (simple y doble) ademas de multiples lineas</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="sx">%(flexible quotes can handle both &#39; and &quot; characters)</span>
+<span class="o">&gt;</span> <span class="s2">&quot;flexible quotes can handle both &#39; and </span><span class="se">\&quot;</span><span class="s2"> characters&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">long_string</span> <span class="o">=</span> <span class="sx">%{</span>
+<span class="sx">It was the best of times,</span>
+<span class="sx">It was the worst of times.</span>
+<span class="sx">}</span>
+<span class="o">&gt;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">It was the best of times,</span><span class="se">\n</span><span class="s2">It was the worst of times.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</code></pre>
+</div>
+<p>Tambien los here docs pueden manejar multiples lineas</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">long_string</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">EOS</span>
+<span class="err">&lt;span class=&quot;sh&quot;&gt;It was the best of times,</span>
+<span class="err">&lt;span class=&quot;sh&quot;&gt;It was the worst of times.</span>
+<span class="err">&lt;span class=&quot;no&quot;&gt;EOS</span>
+<span class="err">&gt; &quot;It was the best of times,\nIt was the worst of times.\n&quot;</span>
+<span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sh&quot;</span><span class="o">&gt;</span><span class="no">It</span> <span class="n">was</span> <span class="n">the</span> <span class="n">best</span> <span class="n">of</span> <span class="n">times</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sh&quot;</span><span class="o">&gt;</span><span class="no">It</span> <span class="n">was</span> <span class="n">the</span> <span class="n">worst</span> <span class="n">of</span> <span class="n">times</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="o">&gt;</span><span class="no">EOS</span>
+<span class="o">&gt;</span> <span class="s2">&quot;It was the best of times,</span><span class="se">\n</span><span class="s2">It was the worst of times.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</code></pre>
+</div>
+<p>Podemos usar los operadores + , += y &lt;&lt; para concatenar varios strings. Es preferible usar el operados &lt;&lt; en vez de += para evitar creacion de variables en el proceso de concatenacion.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="s2">&quot;World&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Hello, World&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;</span> <span class="n">hi</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Hello, &quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">hi</span> <span class="o">+=</span> <span class="s2">&quot;World&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Hello, World&quot;</span>
+</code></pre>
+</div>
+<p>Podemos usar rangos para obtener partes de un string.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Bacon, lettuce and tomato&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Bacon, lettuce and tomato&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span><span class="o">[</span><span class="mi">7</span><span class="o">.</span><span class="n">.</span><span class="mi">9</span><span class="o">]</span>
+<span class="o">&gt;</span> <span class="s2">&quot;let&quot;</span>
+</code></pre>
+</div>
+<p>Tambien podemos obtener un caracter de un string, al hacer esto, es retornado caracter en forma ordinal.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Bacon, lettuce and tomato&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Bacon, lettuce and tomato&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="o">&gt;</span> <span class="mi">97</span>
+</code></pre>
+</div>
+<p>Los string pueden ser separados en base a algun delimitador, por defecto el delimitador es un espacio.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Sausage Egg Cheese&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Sausage Egg Cheese&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span>
+<span class="o">&gt;</span> <span class="o">[</span><span class="s2">&quot;Sausage&quot;</span><span class="p">,</span> <span class="s2">&quot;Egg&quot;</span><span class="p">,</span> <span class="s2">&quot;Cheese&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;the:rain:in:spain&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;the:rain:in:spain&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/:/</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="o">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;rain&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;spain&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<p>Los string tambien pueden ser generados a partir de un arreglo de stirngs y un separador.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;Now&quot;</span><span class="p">,</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="o">]</span>
+<span class="o">&gt;</span> <span class="o">[</span><span class="s2">&quot;Now&quot;</span><span class="p">,</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">words</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="s2">&quot;Now is the time&quot;</span>
+</code></pre>
+</div>
+<p>Los strings no son objetos unicos</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;a string&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;a string&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;a string&quot;</span>
+<span class="o">&gt;</span> <span class="s2">&quot;a string&quot;</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="o">&gt;</span> <span class="kp">true</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">object_id</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">object_id</span>
+<span class="o">&gt;</span> <span class="kp">false</span>
 </code></pre>
 </div>
 </div>

@@ -1,0 +1,174 @@
+---
+layout: post
+title: Sobre expresiones regualres (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Un objeto Regexp mantiene una expresion regular usada para encontrar un patron en un string. Los objetos Regexp son creados usando los literales /.../ y %r{...} y por el constructor Regexp::new.
+
+Las expresiones regualres (regexps) son un patron que describen el contenido de un string. Son usados para probar si un string contiene ese patron o para extraer un porcion del mismo. Son creadas con los literales /pat/ y %r{pat} o el constructor Regexp.new. 
+
+Si el patron no es encontrado en un string, se retornara nil.
+
+{% highlight ruby %}
+>> /pattern/.class
+=> Regexp
+{% endhighlight %}
+
+{% highlight ruby %}
+>> "some matching content"[/match/]
+=> "match"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> "some matching content"[/missing/]
+=> nil
+{% endhighlight %}
+
+Los metacaracteres (, ), [, ], {, }, ., ?, +, * tienen un significado especial cuando aparecen en un patron. Para compararlos literalmente deben ser escapados.
+
+{% highlight ruby %}
+# ? indica lo anterior es opcional
+?> "abbcccddddeeeee"[/ab?/]
+=> "ab"
+>> "abbcccddddeeeee"[/az?/]
+=> "a"
+{% endhighlight %}
+
+{% highlight ruby %}
+# + inidica lo anterior una o mas veces
+>> "abbcccddddeeeee"[/bc+/]
+=> "bccc"
+{% endhighlight %}
+
+{% highlight ruby %}
+# * indica lo anterior cero o mas veces
+>> "abbcccddddeeeee"[/ab*/]
+=> "abb"
+>> "abbcccddddeeeee"[/az*/]
+=> "a"
+>> "abbcccddddeeeee"[/z*/]
+=> ""
+{% endhighlight %}
+
+Si el patron se encuentra varias veces en el string se retornara el que se encuentre mas a la izquierda.
+
+{% highlight ruby %}
+>> "abbccc az"[/az*/]
+=> "a"
+{% endhighlight %}
+
+Podemos tener patrones para encontrar varias combinaciones
+
+{% highlight ruby %}
+# uno u otro caracter
+>> animals = ["cat", "bat", "rat", "zat"]
+=> ["cat", "bat", "rat", "zat"]
+>> animals.select { |a| a[/[cbr]at/] }
+=> ["cat", "bat", "rat"]
+{% endhighlight %}
+
+{% highlight ruby %}
+# digitos
+>> "the number is 42"[/[0123456789]+/]
+=> "42"
+>> "the number is 42"[/\d+/]
+=> 42
+>> "the number is 42"[/[0-9]+/]
+=> "42"
+{% endhighlight %}
+
+{% highlight ruby %}
+# espacios
+>> "space: \t\n"[/\s+/]
+=> " \t\n"
+{% endhighlight %}
+
+{% highlight ruby %}
+# parlabras
+>> "variable_1 = 42"[/[a-zA-Z0-9_]+/]
+=> "variable_1"
+>> "variable_1 = 42"[/\w+/]
+=> "variable_1"
+{% endhighlight %}
+
+{% highlight ruby %}
+# saltos de linea
+>> "abc\n123"[/a.+/]
+=> "abc"
+{% endhighlight %}
+
+{% highlight ruby %}
+# comienzo de un string
+>> "start end"[/\Astart/]
+=> "start"
+>> "start end"[/\Aend/]
+=> nil
+{% endhighlight %}
+
+{% highlight ruby %}
+# final de un string
+>> "start end"[/end\z/]
+=> "end"
+>> "start end"[/start\z/]
+=> nil
+{% endhighlight %}
+
+{% highlight ruby %}
+# grupos
+>> "ahahaha"[/(ha)+/]
+=> "hahaha"
+{% endhighlight %}
+
+{% highlight ruby %}
+>> "Gray, James"[/(\w+), (\w+)/, 1]
+=> "Gray"
+>> "Gray, James"[/(\w+), (\w+)/, 2]
+=> "James"
+{% endhighlight %}
+
+{% highlight ruby %}
+# variables
+>> "Name:  Gray, James"[/(\w+), (\w+)/]
+=> "Gray, James"
+>> $1
+=> "Gray"
+>> $2
+=> "James"
+{% endhighlight %}
+
+{% highlight ruby %}
+# operador 'or'
+>> grays = /(James|Dana|Summer) Gray/
+=> /(James|Dana|Summer) Gray/
+{% endhighlight %}
+
+{% highlight ruby %}
+>> "James Gray"[grays]
+=> "James Gray"
+>> "Summer Gray"[grays, 1]
+=> "Summer"
+>> "Jim Gray"[grays, 1]
+=> nil
+{% endhighlight %}
+
+{% highlight ruby %}
+# encuentra todas las ocurrencias
+>> "one two-three".scan(/\w+/)
+=> ["one", "two", "three"]
+{% endhighlight %}
+
+{% highlight ruby %}
+# encuentra y reemplaza
+>> "one two-three".sub(/(t\w*)/) { $1[0, 1] }
+=> "one t-three"
+{% endhighlight %}
+
+{% highlight ruby %}
+# encuentra y reemplaza todos
+>> "one two-three".gsub(/(t\w*)/) { $1[0, 1] }
+=> "one t-t"
+{% endhighlight %}

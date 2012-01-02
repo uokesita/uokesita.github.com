@@ -1,0 +1,205 @@
+<DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Sobre expresiones regualres (Ruby Koans)</title>
+    <meta name="author" content="Osledy Bazo" />
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+      var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+
+    <div class="site">
+      <div class="title">
+        <a href="/">Os</a>
+      </div>
+
+      <div id="post">
+  <h1>Sobre expresiones regualres (Ruby Koans)</h1>
+<p class="meta">31 Dic 2011</p>
+<p>Un objeto Regexp mantiene una expresion regular usada para encontrar un patron en un string. Los objetos Regexp son creados usando los literales /&#8230;/ y %r{&#8230;} y por el constructor Regexp::new.</p>
+<p>Las expresiones regualres (regexps) son un patron que describen el contenido de un string. Son usados para probar si un string contiene ese patron o para extraer un porcion del mismo. Son creadas con los literales /pat/ y %r{pat} o el constructor Regexp.new.</p>
+<p>Si el patron no es encontrado en un string, se retornara nil.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="sr">/pattern/</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="no">Regexp</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="s2">&quot;some matching content&quot;</span><span class="o">[/</span><span class="n">match</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;match&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="s2">&quot;some matching content&quot;</span><span class="o">[/</span><span class="n">missing</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+</div>
+<p>Los metacaracteres (, ), [, ], {, }, ., ?, +, * tienen un significado especial cuando aparecen en un patron. Para compararlos literalmente deben ser escapados.</p>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># ? indica lo anterior es opcional</span>
+<span class="sc">?&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">ab?</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;ab&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">az?</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;a&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># + inidica lo anterior una o mas veces</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">bc</span><span class="o">+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;bccc&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># * indica lo anterior cero o mas veces</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">ab</span><span class="o">*/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;abb&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">az</span><span class="o">*/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;a&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abbcccddddeeeee&quot;</span><span class="o">[/</span><span class="n">z</span><span class="o">*/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span>
+</code></pre>
+</div>
+<p>Si el patron se encuentra varias veces en el string se retornara el que se encuentre mas a la izquierda.</p>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="s2">&quot;abbccc az&quot;</span><span class="o">[/</span><span class="n">az</span><span class="o">*/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;a&quot;</span>
+</code></pre>
+</div>
+<p>Podemos tener patrones para encontrar varias combinaciones</p>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># uno u otro caracter</span>
+<span class="o">&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;bat&quot;</span><span class="p">,</span> <span class="s2">&quot;rat&quot;</span><span class="p">,</span> <span class="s2">&quot;zat&quot;</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;bat&quot;</span><span class="p">,</span> <span class="s2">&quot;rat&quot;</span><span class="p">,</span> <span class="s2">&quot;zat&quot;</span><span class="o">]</span>
+<span class="o">&gt;&gt;</span> <span class="n">animals</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">[/[</span><span class="n">cbr</span><span class="o">]</span><span class="n">at</span><span class="o">/]</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;bat&quot;</span><span class="p">,</span> <span class="s2">&quot;rat&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># digitos</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;the number is 42&quot;</span><span class="o">[/[</span><span class="mo">01234567</span><span class="mi">89</span><span class="o">]+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;42&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;the number is 42&quot;</span><span class="o">[/</span><span class="p">\</span><span class="n">d</span><span class="o">+/]</span>
+<span class="o">=&gt;</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;the number is 42&quot;</span><span class="o">[/[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">]+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;42&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># espacios</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;space: </span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="o">[/</span><span class="p">\</span><span class="n">s</span><span class="o">+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot; </span><span class="se">\t\n</span><span class="s2">&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># parlabras</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;variable_1 = 42&quot;</span><span class="o">[/[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="no">Z0</span><span class="o">-</span><span class="mi">9</span><span class="n">_</span><span class="o">]+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;variable_1&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;variable_1 = 42&quot;</span><span class="o">[/</span><span class="p">\</span><span class="n">w</span><span class="o">+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;variable_1&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># saltos de linea</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;abc</span><span class="se">\n</span><span class="s2">123&quot;</span><span class="o">[/</span><span class="n">a</span><span class="o">.</span><span class="n">+</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;abc&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># comienzo de un string</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;start end&quot;</span><span class="o">[/</span><span class="p">\</span><span class="no">Astart</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;start&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;start end&quot;</span><span class="o">[/</span><span class="p">\</span><span class="no">Aend</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># final de un string</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;start end&quot;</span><span class="o">[/</span><span class="k">end</span><span class="p">\</span><span class="n">z</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;end&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;start end&quot;</span><span class="o">[/</span><span class="n">start</span><span class="p">\</span><span class="n">z</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># grupos</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;ahahaha&quot;</span><span class="o">[/</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span><span class="o">+/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;hahaha&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="s2">&quot;Gray, James&quot;</span><span class="o">[/</span><span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">),</span> <span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">)</span><span class="o">/</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;Gray&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;Gray, James&quot;</span><span class="o">[/</span><span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">),</span> <span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">)</span><span class="o">/</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;James&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># variables</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;Name:  Gray, James&quot;</span><span class="o">[/</span><span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">),</span> <span class="p">(\</span><span class="n">w</span><span class="o">+</span><span class="p">)</span><span class="o">/]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;Gray, James&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="vg">$1</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;Gray&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="vg">$2</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;James&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># operador &#39;or&#39;</span>
+<span class="o">&gt;&gt;</span> <span class="n">grays</span> <span class="o">=</span> <span class="sr">/(James|Dana|Summer) Gray/</span>
+<span class="o">=&gt;</span> <span class="sr">/(James|Dana|Summer) Gray/</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="o">&gt;&gt;</span> <span class="s2">&quot;James Gray&quot;</span><span class="o">[</span><span class="n">grays</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;James Gray&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;Summer Gray&quot;</span><span class="o">[</span><span class="n">grays</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;Summer&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;Jim Gray&quot;</span><span class="o">[</span><span class="n">grays</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># encuentra todas las ocurrencias</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;one two-three&quot;</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="o">]</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># encuentra y reemplaza</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;one two-three&quot;</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/(t\w*)/</span><span class="p">)</span> <span class="p">{</span> <span class="vg">$1</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;one t-three&quot;</span>
+</code></pre>
+</div>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># encuentra y reemplaza todos</span>
+<span class="o">&gt;&gt;</span> <span class="s2">&quot;one two-three&quot;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/(t\w*)/</span><span class="p">)</span> <span class="p">{</span> <span class="vg">$1</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;one t-t&quot;</span>
+</code></pre>
+</div>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_strings.html">Sobre Strings (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_simbolos.html">Sobre Simbolos (Ruby Koans)</a></li>
+    
+    <li><span>31 Dec 2011</span> &raquo; <a href="/2011/12/31/sobre_objects.html">Sobre objets (Ruby Koans)</a></li>
+    
+  </ul>
+</div>
+
+
+      <div class="footer">
+        <div class="contact">
+          <p>
+          osledybazo@gmail.com
+          </p>
+        </div>
+        <div class="contact">
+          <p>
+          <a href="http://github.com/uokesita/">github.com/uokesita</a><br />
+          <a href="http://twitter.com/uokesita/">twitter.com/uokesita</a><br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+
