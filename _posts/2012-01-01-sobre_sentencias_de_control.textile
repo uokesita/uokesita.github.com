@@ -1,0 +1,25 @@
+---
+layout: post
+title: Sobre sentencias de control (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+TODAS las sentencias en ruby retornan un valor 
+
+{% highlight ruby %}
+>> value = if true
+>>            :true_value
+>>         else
+?>            :false_value
+>>         end
+=> :true_value
+>> value = if false
+>>           :true_value
+>>         else
+?>           :false_value
+>>         end
+=> :false_value
+{% endhighlight %}
