@@ -1,0 +1,51 @@
+---
+layout: post
+title: Sobre metodos (Ruby Koans)
+---
+
+h1. {{ page.title }}
+
+p(meta). 31 Dic 2011
+
+Al pasar el numero incorrecto de parametros tenemos una excepcion ArgumentError.
+
+{% highlight ruby %}
+def my_global_method(a,b)
+  a + b
+end
+{% endhighlight %}
+
+{% highlight ruby %}
+>> my_global_method
+=> ArgumentError: wrong number of arguments (0 for 2)
+	from (irb):1:in `my_global_method'
+	from (irb):6
+	from /Users/osledybazo/.rvm/rubies/ruby-1.9.2-p180/bin/irb:16:in `<main>'
+{% endhighlight %}
+
+{% highlight ruby %}
+>> my_global_method(1,2,3)
+=> ArgumentError: wrong number of arguments (3 for 2)
+	from (irb):1:in `my_global_method'
+	from (irb):7
+	from /Users/osledybazo/.rvm/rubies/ruby-1.9.2-p180/bin/irb:16:in `<main>'
+{% endhighlight %}
+
+Un metodo puede tomas varios parametros
+
+{% highlight ruby %}
+>> def method_with_var_args(*args)
+     args
+   end
+=> nil 
+{% endhighlight %}
+
+{% highlight ruby %}
+>> method_with_var_args
+=> [] 
+>> method_with_var_args(:one)
+=> [:one] 
+>> method_with_var_args(:one, :two)
+=> [:one, :two] 
+{% endhighlight %}
+
